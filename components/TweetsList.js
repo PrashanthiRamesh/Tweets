@@ -1,0 +1,83 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
+import axios from 'axios'
+
+import { connect } from 'react-redux'
+import { listTweets } from '../reducer'
+
+export default function TweetsList() {
+
+
+    const [user, setUser] = useState('realdonaldtrump')
+    const [tweets, setTweets] = useState([])
+
+    useEffect(() => {
+        fetchTweets()
+    }, [])
+
+    const fetchTweets = async () => {
+        // console.slog(user)
+        const response =
+            await axios.get(
+                `https://api.twitter.com/1.1/search/tweets.json?q=${user}`,
+                { headers: { 'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAHjSFQEAAAAABb1yKIwGINddNVWOSxcl0Q2EjF0%3DiNsyEGCr62CxlfLprXedMMu0R3OFcsNjyZoWXurKhZ8azNMYhA' } }
+            )
+            setTweets(response.data.statuses)
+    }
+
+    const toggleUser = () => {
+       
+        (user === 'realdonaldtrump') ? setUser('hillaryclinton') : setUser('realdonaldtrump')
+        fetchTweets()
+    }
+
+    const Item = ({ title }) => {
+        return (
+            <Text style={styles.item}>{title}</Text>
+        );
+    }
+
+    return (
+        <View style={styles.container}>
+            <Button title={(user === 'realdonaldtrump') ? 'Hillary Clinton' : 'Donald Trump'} onPress={toggleUser} />
+            <Text style={styles.title}>{`Tweets about ${user}`}</Text>
+            <FlatList
+                data={tweets}
+                renderItem={({ item }) => <Item title={item.text} />}
+                keyExtractor={item => item.id.toString()}
+            />
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: 50,
+        backgroundColor: '#fff',
+        justifyContent: 'flex-start',
+    },
+    item: {
+        padding: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc'
+    },
+    title: {
+        backgroundColor: 'lightgrey',
+        padding: 20,
+        textAlign: 'center'
+    }
+});
+
+// const mapStateToProps = state => {
+//     let storedTweets = state.tweets.statuses.map(tweet => ({ key: tweet.id, ...tweet }));
+//     return {
+//       tweets: storedTweets
+//     };
+//   };
+
+//   const mapDispatchToProps = {
+//     listTweets
+//   };
+
+//   export default connect(mapStateToProps, mapDispatchToProps)(TweetsList);
