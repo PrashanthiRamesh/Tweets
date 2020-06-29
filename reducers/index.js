@@ -1,5 +1,3 @@
-const { startCase } = require("lodash")
-
 const reducer = (state = {}, action) => {
     switch (action.type) {
         case 'GET_TWEETS':
@@ -7,7 +5,7 @@ const reducer = (state = {}, action) => {
         case 'TWEETS_RECEIVED':
             return { ...state, tweets: action.json, loading: false }
         default:
-            return startCase
+            return state
     }
 }
 

@@ -12,7 +12,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
   reducer,
-  applyMiddleware(sagaMiddleware, logger)
+  applyMiddleware(sagaMiddleware)
 )
 
 sagaMiddleware.run(rootSaga)

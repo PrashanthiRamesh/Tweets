@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux'
 
@@ -10,9 +10,8 @@ export default function TweetsItem({ tweets }) {
     }
 
     return (
-        <View style={styles.container}>
-            {/* <Button title={(user === 'realdonaldtrump') ? 'Hillary Clinton' : 'Donald Trump'} onPress={toggleUser} />
-            <Text style={styles.title}>{`Tweets about ${user}`}</Text> */}
+        <View >
+            
             <FlatList
                 data={tweets}
                 renderItem={({ item }) => <Item title={item.text} />}

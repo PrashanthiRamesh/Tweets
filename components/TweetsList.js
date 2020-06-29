@@ -2,12 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
 import axios from 'axios'
 
-import { connect } from 'react-redux'
-
-
 export default function TweetsList() {
-
-
     const [user, setUser] = useState('realdonaldtrump')
     const [tweets, setTweets] = useState([])
 
@@ -16,7 +11,6 @@ export default function TweetsList() {
     }, [])
 
     const fetchTweets = async () => {
-        // console.slog(user)
         const response =
             await axios.get(
                 `https://api.twitter.com/1.1/search/tweets.json?q=${user}`,
@@ -68,16 +62,3 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
-
-// const mapStateToProps = state => {
-//     let storedTweets = state.tweets.statuses.map(tweet => ({ key: tweet.id, ...tweet }));
-//     return {
-//       tweets: storedTweets
-//     };
-//   };
-
-//   const mapDispatchToProps = {
-//     listTweets
-//   };
-
-//   export default connect(mapStateToProps, mapDispatchToProps)(TweetsList);
