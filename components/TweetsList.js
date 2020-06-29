@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
 import axios from 'axios'
 
 import { connect } from 'react-redux'
-import { listTweets } from '../reducer'
+
 
 export default function TweetsList() {
 
