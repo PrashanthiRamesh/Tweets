@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { getTweets } from '../actions';
+import React, { useState } from 'react'
+import { Button } from 'react-native'
+import { connect } from 'react-redux'
+import { getTweets } from '../actions'
 
 
 export default function TweetButton({ getTweets }) {
@@ -17,14 +17,6 @@ export default function TweetButton({ getTweets }) {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    title: {
-        backgroundColor: 'lightgrey',
-        padding: 20,
-        textAlign: 'center'
-    }
-});
 
 const mapDispatchToProps = {
     getTweets: getTweets

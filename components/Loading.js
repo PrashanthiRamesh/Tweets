@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
+import { ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
-import { ActivityIndicator } from 'react-native';
 
 export default function Loading({ loading }) {
     return (
@@ -9,6 +9,6 @@ export default function Loading({ loading }) {
     )
 }
 
-const mapStateToProps = (state) => ({loading: state.loading})
+const mapStateToProps = (state) => ({ loading: state.loading })
 
-Loading = connect(mapStateToProps, null) (Loading)
+Loading = connect(mapStateToProps, null)(Loading)

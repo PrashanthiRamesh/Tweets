@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import Loading from './Loading';
-import TweetButton from './TweetButton';
-import TweetsItem from './TweetsItem';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import Loading from './Loading'
+import TweetButton from './TweetButton'
+import TweetsList from './TweetsList'
 
 
 export default function Main() {
@@ -10,8 +10,8 @@ export default function Main() {
         <View style={styles.container}>
             <TweetButton />
             <Loading />
-            <TweetsItem />
-       </View>
+            <TweetsList />
+        </View>
     )
 }
 
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 50
     }
-});
+})

@@ -1,46 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, FlatList, Image } from 'react-native';
-import axios from 'axios'
+import React from 'react'
+import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { connect } from 'react-redux'
 
-export default function TweetsList() {
-    const [user, setUser] = useState('realdonaldtrump')
-    const [tweets, setTweets] = useState([])
+const { width } = Dimensions.get('window')
 
-    useEffect(() => {
-        fetchTweets()
-    }, [])
-
-    const fetchTweets = async () => {
-        const response =
-            await axios.get(
-                `https://api.twitter.com/1.1/search/tweets.json?q=${user}`,
-                { headers: { 'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAHjSFQEAAAAABb1yKIwGINddNVWOSxcl0Q2EjF0%3DiNsyEGCr62CxlfLprXedMMu0R3OFcsNjyZoWXurKhZ8azNMYhA' } }
-            )
-        setTweets(response.data.statuses)
-    }
-
-    const toggleUser = () => {
-
-        (user === 'realdonaldtrump') ? setUser('hillaryclinton') : setUser('realdonaldtrump')
-        fetchTweets()
-    }
+export default function TweetsList({ tweets }) {
 
     const Item = ({ item }) => {
         return (
-            <>
-                <Image src={item.user.profile_image_url} rounded />
-                <Text style={styles.item}>{item.text}</Text>
-            </>
-        );
+            <View style={styles.tweet} >
+                <View>
+                    <Image style={styles.image}
+                        source={{
+                            uri: item.user.profile_image_url,
+                        }}
+                    />
+                </View>
+                <View style={{ padding: 5 }}>
+                    <Text style={styles.name}>{item.user.name}</Text>
+                    <Text style={styles.text}>{item.retweeted_status.full_text}</Text>
+                </View>
+            </View>
+        )
     }
 
     return (
-        <View style={styles.container}>
-            <Button title={(user === 'realdonaldtrump') ? 'Hillary Clinton' : 'Donald Trump'} onPress={toggleUser} />
-            <Text style={styles.title}>{`Tweets about ${user}`}</Text>
+        <View>
             <FlatList
+                style={styles.container}
                 data={tweets}
-                renderItem={({ item }) => <Item title={item} />}
+                renderItem={({ item }) => (item.retweeted_status) && <Item item={item} />}
                 keyExtractor={item => item.id.toString()}
             />
         </View>
@@ -49,19 +38,37 @@ export default function TweetsList() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: 50,
-        backgroundColor: '#fff',
-        justifyContent: 'flex-start',
-    },
-    item: {
-        padding: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc'
+        marginBottom: 50,
     },
     title: {
         backgroundColor: 'lightgrey',
         padding: 20,
         textAlign: 'center'
+    },
+    image: {
+        width: 50,
+        height: 50,
+        borderRadius: 50 / 2
+    },
+    tweet: {
+        flex: 1,
+        flexDirection: 'row',
+        padding: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc'
+    },
+    name: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#38A1F3',
+        width: width - 90
+    },
+    text: {
+        width: width - 90
     }
-});
+})
+
+const mapStateToProps = (state) => ({
+    tweets: state.tweets,
+})
+TweetsList = connect(mapStateToProps, null)(TweetsList)

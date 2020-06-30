@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Tweets",
-    "slug": "Tweets",
+    "name": "Aldo Tweets Challenge",
+    "slug": "TweetsChallenge",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/twitter.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/twittersplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.thescriptworm.aldotweetschallenge",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.thescriptworm.aldotweetschallenge",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
