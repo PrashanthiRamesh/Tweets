@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "Aldo Tweets Challenge",
-    "slug": "TweetsChallenge",
+    "slug": "aldo-tweets-challenge",
+    "description": "A React Native app to fetch latest tweets of Donald Trump and Hillary Clinton",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/twitter.png",
