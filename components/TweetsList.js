@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, Image } from 'react-native';
 import axios from 'axios'
 
 export default function TweetsList() {
@@ -16,18 +16,21 @@ export default function TweetsList() {
                 `https://api.twitter.com/1.1/search/tweets.json?q=${user}`,
                 { headers: { 'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAHjSFQEAAAAABb1yKIwGINddNVWOSxcl0Q2EjF0%3DiNsyEGCr62CxlfLprXedMMu0R3OFcsNjyZoWXurKhZ8azNMYhA' } }
             )
-            setTweets(response.data.statuses)
+        setTweets(response.data.statuses)
     }
 
     const toggleUser = () => {
-       
+
         (user === 'realdonaldtrump') ? setUser('hillaryclinton') : setUser('realdonaldtrump')
         fetchTweets()
     }
 
-    const Item = ({ title }) => {
+    const Item = ({ item }) => {
         return (
-            <Text style={styles.item}>{title}</Text>
+            <>
+                <Image src={item.user.profile_image_url} rounded />
+                <Text style={styles.item}>{item.text}</Text>
+            </>
         );
     }
 
@@ -37,7 +40,7 @@ export default function TweetsList() {
             <Text style={styles.title}>{`Tweets about ${user}`}</Text>
             <FlatList
                 data={tweets}
-                renderItem={({ item }) => <Item title={item.text} />}
+                renderItem={({ item }) => <Item title={item} />}
                 keyExtractor={item => item.id.toString()}
             />
         </View>
